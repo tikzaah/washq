@@ -14,11 +14,27 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap">
 <script>
   // ทางเข้าหน้าต่ออายุสมาชิกของผู้ดูแลระบบ (เปิดได้เฉพาะบัญชี Google ของเจ้าของ)
-  // เปิดจากไอคอนหน้าจอโฮม (โหมดแอป) หรือ ?go → ไปหน้าต่ออายุทันที
-  // เปิดในเบราว์เซอร์ปกติ: อยู่หน้านี้เสมอ เพื่อให้ "เพิ่มไปยังหน้าจอโฮม" ได้ไอคอน WashQ (ไม่ใช่ของ Google)
+  // เปิดจากไอคอนหน้าจอโฮม (โหมดแอป) หรือ ?go → ฝังหน้าต่ออายุเต็มจอ (ไม่มีแถบเตือนของ Google)
+  // เปิดในเบราว์เซอร์ปกติ: หน้าวิธีติดตั้ง เพื่อให้ "เพิ่มไปยังหน้าจอโฮม" ได้ไอคอน WashQ
+  // ตั๋วล็อกอินเก็บที่หน้านี้ (iPhone ล้างที่เก็บข้อมูลของกรอบ Google เมื่อปิดแอป) แล้วส่งให้กรอบเมื่อขอ
   var APP = 'https://script.google.com/macros/s/AKfycbwi2xx2yPboLQjtFIyZ26h4jR5RbTmAHs-HTmxD-T6h0AONS-98oIIPM3drThVL8v0S9A/exec';
   var asApp = navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
-  if (/[?&]go\b/.test(location.search) || asApp) location.replace(APP);
+  var embed = /[?&]go\b/.test(location.search) || asApp;
+  if (embed) document.documentElement.className = 'embed';
+  window.addEventListener('message', function (e) {
+    if (!/^https:\/\/[^/]+\.googleusercontent\.com$/.test(e.origin) || !e.data) return;
+    if (e.data.type === 'washq-ready') {
+      var t = ''; try { t = localStorage.getItem('washq_token') || ''; } catch (x) {}
+      e.source.postMessage({ type: 'washq-token', token: t }, e.origin);
+    } else if (e.data.type === 'washq-save') {
+      try { e.data.token ? localStorage.setItem('washq_token', e.data.token) : localStorage.removeItem('washq_token'); } catch (x) {}
+    }
+  });
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!embed) return;
+    var f = document.createElement('iframe'); f.src = APP; f.title = 'WashQ ต่ออายุสมาชิก';
+    document.body.appendChild(f);
+  });
 </script>
 <style>
   :root { --navy: #0B2A4A; --aqua: #1EC8E6; --sun: #FFC530; --ink: #0B2A4A; --muted: #4b6178; --bg: #eef4f8; --card: #fff; }
@@ -34,6 +50,9 @@
   a.go:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
   .how { width: 100%; box-sizing: border-box; background: var(--card); border-radius: 18px; padding: 16px 18px; text-align: left; display: grid; gap: 8px; }
   .how b { font-weight: 600; } .how p { margin: 0; color: var(--muted); }
+  html.embed main { display: none; }
+  html.embed body { padding: 0; background: var(--bg); }
+  iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
 </style>
 </head>
 <body>

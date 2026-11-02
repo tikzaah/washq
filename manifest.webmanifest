@@ -3,7 +3,7 @@
   "short_name": "WashQ",
   "start_url": "./?go",
   "scope": "./",
-  "display": "browser",
+  "display": "standalone",
   "background_color": "#0B2A4A",
   "theme_color": "#0B2A4A",
   "icons": [

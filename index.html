@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>WashQ</title>
 <meta name="apple-mobile-web-app-title" content="WashQ">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0B2A4A">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -12,11 +14,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap">
 <script>
   // ทางเข้าหน้าต่ออายุสมาชิกของผู้ดูแลระบบ (เปิดได้เฉพาะบัญชี Google ของเจ้าของ)
-  // เปิดจากไอคอนหน้าจอโฮม / เคยเปิดหน้านี้แล้ว → ไปหน้าต่ออายุทันที · ?setup = ดูวิธีติดตั้งอีกครั้ง
+  // เปิดจากไอคอนหน้าจอโฮม (โหมดแอป) หรือ ?go → ไปหน้าต่ออายุทันที
+  // เปิดในเบราว์เซอร์ปกติ: อยู่หน้านี้เสมอ เพื่อให้ "เพิ่มไปยังหน้าจอโฮม" ได้ไอคอน WashQ (ไม่ใช่ของ Google)
   var APP = 'https://script.google.com/macros/s/AKfycbwi2xx2yPboLQjtFIyZ26h4jR5RbTmAHs-HTmxD-T6h0AONS-98oIIPM3drThVL8v0S9A/exec';
-  var q = location.search, seen = false;
-  try { seen = localStorage.getItem('washq_seen') === '1'; localStorage.setItem('washq_seen', '1'); } catch (e) {}
-  if (/[?&]go\b/.test(q) || (seen && !/[?&]setup\b/.test(q)) || navigator.standalone) location.replace(APP);
+  var asApp = navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+  if (/[?&]go\b/.test(location.search) || asApp) location.replace(APP);
 </script>
 <style>
   :root { --navy: #0B2A4A; --aqua: #1EC8E6; --sun: #FFC530; --ink: #0B2A4A; --muted: #4b6178; --bg: #eef4f8; --card: #fff; }
@@ -44,7 +46,7 @@
     <b>เพิ่มไอคอน WashQ ไว้บนหน้าจอมือถือ</b>
     <p>iPhone: ปุ่มแชร์ใน Safari → เพิ่มไปยังหน้าจอโฮม</p>
     <p>Android: ⋮ ใน Chrome → เพิ่มลงในหน้าจอหลัก</p>
-    <p>ครั้งต่อไปกดไอคอน จะเข้าหน้าต่ออายุทันที</p>
+    <p>ต้องกดเพิ่มจากหน้านี้ (ก่อนกดปุ่มด้านบน) ไอคอนจึงเป็น WashQ · กดไอคอนแล้วเข้าหน้าต่ออายุทันที</p>
   </div>
 </main>
 </body>

@@ -37,18 +37,30 @@
   });
 </script>
 <style>
-  :root { --navy: #0B2A4A; --aqua: #1EC8E6; --sun: #FFC530; --ink: #0B2A4A; --muted: #4b6178; --bg: #eef4f8; --card: #fff; }
-  @media (prefers-color-scheme: dark) { :root { --ink: #eaf3fa; --muted: #a9c3da; --bg: #071a2e; --card: #0f2d4d; color-scheme: dark; } }
+  /* ธีมน้ำเงินมืดของ WashQ อย่างเดียว (ตั้งใจ) · พื้นหลัง $ จางๆ ลอยไปมา เหมือนหน้าต่ออายุ */
+  :root { --navy: #0B2A4A; --aqua: #1EC8E6; --sun: #FFC530; --ink: #eaf3fa; --muted: #9db8d0; --bg: #071a2e; --card: rgb(15 45 77 / .78); color-scheme: dark; }
+  #money { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+    background: radial-gradient(120% 70% at 20% 0%, #12406b 0%, transparent 60%), radial-gradient(90% 60% at 100% 100%, #0d3557 0%, transparent 65%), var(--bg); }
+  #money span { position: absolute; font: 800 var(--s, 40px)/1 Kanit, sans-serif; color: var(--c, var(--aqua)); opacity: var(--o, .08);
+    animation: drift var(--d, 24s) ease-in-out var(--delay, 0s) infinite alternate; }
+  @keyframes drift {
+    0% { transform: translate(0, 0) rotate(-12deg); }
+    50% { transform: translate(var(--x, 30px), calc(var(--y, -60px) / 2)) rotate(8deg); }
+    100% { transform: translate(calc(var(--x, 30px) * -.6), var(--y, -60px)) rotate(-4deg); }
+  }
+  @media (prefers-reduced-motion: reduce) { #money span { animation: none; } }
+  main { position: relative; z-index: 1; }
+  html.embed #money { display: none; }
   body { margin: 0; min-height: 100%; background: var(--bg); color: var(--ink); font: 400 17px/1.55 Kanit, sans-serif;
     padding: 40px max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px)); display: grid; justify-items: center; }
   main { width: 100%; max-width: 420px; display: grid; gap: 22px; justify-items: center; text-align: center; }
-  .icon { width: 132px; height: 132px; border-radius: 30px; box-shadow: 0 10px 30px rgba(11, 42, 74, .25); }
+  .icon { width: 132px; height: 132px; border-radius: 30px; box-shadow: 0 10px 34px rgb(30 200 230 / .25); }
   h1 { margin: 0; font: 800 44px/1 Kanit, sans-serif; letter-spacing: -1px; } h1 i { font-style: normal; color: var(--aqua); }
   .sub { margin: -14px 0 0; color: var(--muted); }
   a.go { display: block; width: 100%; box-sizing: border-box; padding: 16px; border-radius: 16px; background: var(--aqua); color: #06243f;
     font: 600 20px/1.2 Kanit, sans-serif; text-decoration: none; }
   a.go:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
-  .how { width: 100%; box-sizing: border-box; background: var(--card); border-radius: 18px; padding: 16px 18px; text-align: left; display: grid; gap: 8px; }
+  .how { width: 100%; box-sizing: border-box; background: var(--card); border: 1px solid #1f4469; border-radius: 18px; padding: 16px 18px; text-align: left; display: grid; gap: 8px; }
   .how b { font-weight: 600; } .how p { margin: 0; color: var(--muted); }
   html.embed main { display: none; }
   html.embed body { padding: 0; background: var(--bg); }
@@ -56,6 +68,18 @@
 </style>
 </head>
 <body>
+<div id="money" aria-hidden="true"></div>
+<script>
+  (function () {
+    var box = document.getElementById('money'), cols = ['#1EC8E6', '#1EC8E6', '#FFC530', '#9db8d0'], html = '';
+    function r(a, b) { return a + Math.random() * (b - a); }
+    for (var i = 0; i < 22; i++) {
+      html += '<span style="left:' + r(-4, 96).toFixed(1) + '%;top:' + r(-4, 96).toFixed(1) + '%;--s:' + r(22, 78).toFixed(0) + 'px;--c:' + cols[i % cols.length] +
+        ';--o:' + r(.05, .13).toFixed(2) + ';--d:' + r(16, 34).toFixed(0) + 's;--delay:' + (-r(0, 30)).toFixed(1) + 's;--x:' + r(-70, 70).toFixed(0) + 'px;--y:' + r(-120, -30).toFixed(0) + 'px">$</span>';
+    }
+    box.innerHTML = html;
+  })();
+</script>
 <main>
   <img class="icon" src="icon-512.png" alt="ไอคอน WashQ">
   <h1>Wash<i>Q</i></h1>

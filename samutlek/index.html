@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>สมุดเลขคิด</title>
+<style>body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:#EAF5FF;color:#2E2C5E;font:18px/1.5 sans-serif;text-align:center;padding:24px;box-sizing:border-box}
+.e{font-size:72px}h1{margin:0;font-size:32px}a.b{display:inline-block;background:#FFC93C;color:#4A3300;font-weight:700;font-size:24px;padding:16px 36px;border-radius:999px;text-decoration:none;box-shadow:0 5px 0 #F0A800}
+small{color:#6B6A99;max-width:420px}</style></head>
+<body><div class="e">🐘</div><h1>สมุดเลขคิด</h1><p id="v"></p>
+<a class="b" id="dl" href="#">⬇️ โหลดแอป</a>
+<small>โหลดเสร็จแตะไฟล์ แล้วกด "ติดตั้ง"<br>ถ้าเครื่องถามเรื่อง "แหล่งที่ไม่รู้จัก" ให้กดอนุญาต<br>ลงทับของเดิมได้ คะแนนไม่หาย</small>
+<script>fetch('version.json?t='+Date.now()).then(r=>r.json()).then(j=>{document.getElementById('dl').href=j.apk;document.getElementById('v').textContent='เวอร์ชัน '+j.versionName})</script>
+</body></html>

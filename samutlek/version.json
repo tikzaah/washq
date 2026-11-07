@@ -1,8 +1,8 @@
 {
-  "versionCode": 10,
-  "versionName": "1.9",
-  "apk": "https://tikzaah.github.io/washq/samutlek/samutlek-1.9.apk",
-  "sha256": "4a239875233f064e8f905ed19c06fd297b214323bf8110fe1c308daeb32a449a",
-  "notes": "เพิ่มปุ่มอัปเดตหน้าเลือกคนเรียน",
-  "zip": "https://tikzaah.github.io/washq/samutlek/samutlek-1.9.zip"
+  "versionCode": 11,
+  "versionName": "1.10",
+  "apk": "https://tikzaah.github.io/washq/samutlek/samutlek-1.10.apk",
+  "zip": "https://tikzaah.github.io/washq/samutlek/samutlek-1.10.zip",
+  "sha256": "c2ce6c73a0177932f5a02c56b926711813236fd63023ea8e6c3a6a71b33badd0",
+  "notes": "ฟังเสียงอ่านแม่นขึ้น จอไม่ดับ ออกจากแอปเสียงหยุด"
 }
